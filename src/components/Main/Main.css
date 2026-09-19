@@ -1,0 +1,27 @@
+.main img {
+    margin: 1rem;
+    width: 3rem;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.greet span{
+
+    background: -webkit-linear-gradient(16deg,#4b90ff,#ff5546);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+
+
+}
+.greet
+{
+    margin: 5rem;
+
+    }
+.cards img {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
