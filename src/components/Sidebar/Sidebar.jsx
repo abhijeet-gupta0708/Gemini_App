@@ -1,60 +1,256 @@
-import React from 'react'
-import { useState } from 'react'
-import {assets} from '../../assets/assets'
-import './Sidebar.css'
-function Sidebar()
-{
-    const [extended,setextended]=useState(false)
-    return (
-        <>
-        <div className="sidebar">
-            {/* This section will contain the top elements of the sidebar such as Option menu plus icon */}
-            <div className="top">
-                <div className="topitems menu mt-8 p-10 "onClick={()=>setextended(!extended)}>
-                    <img src={assets.menu_icon} alt='menu icon'></img>
-                </div>
+import React, { useState } from "react";
+import { assets } from "../../assets/assets";
 
-                <div className="topitems new-chat w-full inline-flex  flex-row border-2 border-grey rounded-3xl bg-[#e6eaf1] text-gray-600 text-2xl justify-center mt-8 ">
-                    <img src={assets.plus_icon} alt="new-chat" />
-                    {extended?<p >new chat</p>:null}
-                </div>
-                <div className="topitems recent flex" >
-                    <p className="recent-title font-bold text-black">Recent</p>
-                    <div className="recent-entry flex items-start mt-2  p-8 hover:border-3 rounded-lg hover:bg-[#e2e6eb]">
-                        <img src={assets.message_icon} alt='recent-history'></img>
-                       {extended ?  <p className="items-center">What is React...</p> :null}
-                    </div>
-                </div>
+function Sidebar({ onNewChat }) {
+  const [extended, setExtended] = useState(false);
+
+  return (
+    <aside
+      style={{
+        width: extended ? "240px" : "72px",
+        minWidth: extended ? "240px" : "72px",
+      }}
+      className="
+        min-h-screen
+        bg-[#f0f4f9]
+        flex
+        flex-col
+        justify-between
+        transition-all
+        duration-300
+        ease-in-out
+        shrink-0
+      "
+    >
+
+      {/* =========================
+          TOP
+      ========================= */}
+
+      <div className="pt-4">
+
+        {/* MENU */}
+
+        <button
+          type="button"
+          onClick={() => setExtended(!extended)}
+          className="
+            w-full
+            h-12
+            flex
+            items-center
+            justify-center
+            hover:bg-[#e2e6eb]
+            transition
+          "
+        >
+          <img
+            src={assets.menu_icon}
+            alt="Menu"
+            className="w-6 h-6"
+          />
+        </button>
 
 
-            </div>
+        {/* NEW CHAT */}
 
-            {/* This Section will contain all the bottom elements of the Sidebar such as History , Help , and Setting  */}
+        <button
+          type="button"
+          onClick={onNewChat}
+          className={`
+            flex
+            items-center
+            gap-3
+            bg-[#e6eaf1]
+            hover:bg-[#dfe4eb]
+            transition
+            rounded-full
+            text-gray-600
 
-            <div className="bottom">
+            ${
+              extended
+                ? "w-[calc(100%-24px)] mx-3 px-4 py-3"
+                : "w-14 h-12 mx-auto justify-center"
+            }
+          `}
+        >
 
-                <div className="bottomitems recent-entry hover:border-3 rounded-lg hover:bg-[#e2e6eb]">
-                    <div className="history">
-                        <img src={assets.history_icon} alt='History_Icon'></img>
-                        {extended ?<p>History</p>:null}
-                    </div>
-                </div>
-                <div className="bottomitems recent-entry flex-row hover:border-3 rounded-lg hover:bg-[#e2e6eb]">
-                    <div className="setting">
-                        <img src={assets.setting_icon} alt='setting_Icon'></img>
-                        {extended?<p>Setting</p>:null}
-                    </div>
-                </div>
-                <div className="bottomitems recent-entry hover:border-3 rounded-lg hover:bg-[#e2e6eb]">
-                    <div className="question">
-                        <img src={assets.question_icon} alt='question_Icon'></img>
-                        {extended?<p>Help</p>:null}
-                    </div>
-                </div>
-            </div>
+          <img
+            src={assets.plus_icon}
+            alt="New Chat"
+            className="w-7 h-7 shrink-0"
+          />
+
+          {extended && (
+            <span className="text-base whitespace-nowrap">
+              New chat
+            </span>
+          )}
+
+        </button>
+
+
+        {/* RECENT */}
+
+        <div className="mt-6">
+
+          {extended && (
+            <p className="px-5 mb-2 font-semibold text-gray-700">
+              Recent
+            </p>
+          )}
+
+          <button
+            type="button"
+            className={`
+              flex
+              items-center
+              gap-3
+              rounded-lg
+              hover:bg-[#e2e6eb]
+              transition
+
+              ${
+                extended
+                  ? "w-[calc(100%-16px)] mx-2 px-3 py-3"
+                  : "w-14 h-12 mx-auto justify-center"
+              }
+            `}
+          >
+
+            <img
+              src={assets.message_icon}
+              alt="Recent"
+              className="w-5 h-5 shrink-0"
+            />
+
+            {extended && (
+              <span className="text-sm text-gray-700 truncate">
+                What is React...
+              </span>
+            )}
+
+          </button>
+
         </div>
-        </>
-    )
+
+      </div>
+
+
+      {/* =========================
+          BOTTOM
+      ========================= */}
+
+      <div className="pb-4">
+
+        {/* HISTORY */}
+
+        <button
+          type="button"
+          className={`
+            flex
+            items-center
+            gap-3
+            rounded-lg
+            hover:bg-[#e2e6eb]
+            transition
+
+            ${
+              extended
+                ? "w-[calc(100%-16px)] mx-2 px-3 py-3"
+                : "w-14 h-12 mx-auto justify-center"
+            }
+          `}
+        >
+
+          <img
+            src={assets.history_icon}
+            alt="History"
+            className="w-5 h-5 shrink-0"
+          />
+
+          {extended && (
+            <span className="text-sm text-gray-700">
+              History
+            </span>
+          )}
+
+        </button>
+
+
+        {/* SETTINGS */}
+
+        <button
+          type="button"
+          className={`
+            flex
+            items-center
+            gap-3
+            rounded-lg
+            hover:bg-[#e2e6eb]
+            transition
+
+            ${
+              extended
+                ? "w-[calc(100%-16px)] mx-2 px-3 py-3"
+                : "w-14 h-12 mx-auto justify-center"
+            }
+          `}
+        >
+
+          <img
+            src={assets.setting_icon}
+            alt="Settings"
+            className="w-5 h-5 shrink-0"
+          />
+
+          {extended && (
+            <span className="text-sm text-gray-700">
+              Settings
+            </span>
+          )}
+
+        </button>
+
+
+        {/* HELP */}
+
+        <button
+          type="button"
+          className={`
+            flex
+            items-center
+            gap-3
+            rounded-lg
+            hover:bg-[#e2e6eb]
+            transition
+
+            ${
+              extended
+                ? "w-[calc(100%-16px)] mx-2 px-3 py-3"
+                : "w-14 h-12 mx-auto justify-center"
+            }
+          `}
+        >
+
+          <img
+            src={assets.question_icon}
+            alt="Help"
+            className="w-5 h-5 shrink-0"
+          />
+
+          {extended && (
+            <span className="text-sm text-gray-700">
+              Help
+            </span>
+          )}
+
+        </button>
+
+      </div>
+
+    </aside>
+  );
 }
 
-export default Sidebar
+export default Sidebar;

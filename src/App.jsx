@@ -1,18 +1,17 @@
-import { useState } from 'react'
-import Sidebar from './components/Sidebar/Sidebar'
-import Main from './components/Main/Main'
-
-
+import Sidebar from "./components/Sidebar/Sidebar";
+import Main from "./components/Main/Main";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const handleNewChat = () => {
+    window.dispatchEvent(new Event("new-chat"));
+  };
 
   return (
-     <>
-     <Sidebar/>
-     <Main/>
-     </>
-  )
+    <div className="flex min-h-screen w-full">
+      <Sidebar onNewChat={handleNewChat} />
+      <Main />
+    </div>
+  );
 }
 
-export default App
+export default App;
