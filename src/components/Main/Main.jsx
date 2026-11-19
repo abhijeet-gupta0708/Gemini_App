@@ -51,6 +51,24 @@ export default function Main({
     el.scrollTop = el.scrollHeight;
   }, [messages, busy]);
 
+  // The health check resolves after first paint and inserts (or removes) the
+  // setup notice, growing the welcome screen. Return it to the greeting
+  // instead of leaving it scrolled part-way down.
+  const healthState =
+    health === undefined
+      ? "pending"
+      : health === null
+        ? "offline"
+        : health.configured === false
+          ? "unconfigured"
+          : "ready";
+
+  useEffect(() => {
+    if (chatId) return;
+    const el = threadRef.current;
+    if (el) el.scrollTop = 0;
+  }, [chatId, healthState]);
+
   // Markdown, code blocks and images render after the first scroll; keep the
   // newest message in view while the thread is still growing.
   useEffect(() => {
